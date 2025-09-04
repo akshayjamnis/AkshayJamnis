@@ -1,0 +1,349 @@
+
+    :root {
+        --bg: #0b0c10;
+        --card: #111218;
+        --text: #e8e8ea;
+        --muted: #a3a3a9;
+        --accent: #7c3aed;
+        /* violet */
+        --accent-2: #22c55e;
+        /* green */
+        --border: #22232b;
+        --link: #60a5fa;
+        --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        --radius: 18px;
+    }
+
+    /* Light theme (auto toggled) */
+    .light {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #0b0c10;
+        --muted: #475569;
+        --accent: #6d28d9;
+        --accent-2: #16a34a;
+        --border: #e5e7eb;
+        --link: #2563eb;
+        --shadow: 0 8px 30px rgba(2, 6, 23, .08);
+    }
+
+    html,
+    body {
+        height: 100%
+    }
+
+    body {
+        margin: 0;
+        font: 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    /* Layout */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: saturate(180%) blur(8px);
+        background: color-mix(in oklab, var(--bg) 75%, transparent);
+        border-bottom: 1px solid var(--border)
+    }
+
+    .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 18px
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700
+    }
+
+    .brand .logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: grid;
+        place-items: center;
+        color: white;
+        font-weight: 800
+    }
+
+    nav ul {
+        display: flex;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-wrap: wrap
+    }
+
+    nav a {
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid transparent;
+        border-radius: 999px
+    }
+
+    nav a:hover {
+        border-color: var(--border);
+        background: color-mix(in oklab, var(--card) 88%, transparent)
+    }
+
+    .spacer {
+        flex: 1
+    }
+
+    .btn {
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer
+    }
+
+    /* Hero */
+    .hero {
+        padding: 48px 0 10px
+    }
+
+    .hero-card {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 18px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: var(--shadow)
+    }
+
+    .avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: grid;
+        place-items: center;
+        font-weight: 900
+    }
+
+    .hero h1 {
+        margin: 0;
+        font-size: clamp(1.6rem, 2.5vw + 1rem, 2.4rem)
+    }
+
+    .hero p {
+        margin: .4rem 0 1rem;
+        color: var(--muted)
+    }
+
+    .inline-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap
+    }
+
+    .tag {
+        font-size: .85rem;
+        padding: 6px 10px;
+        border: 1px dashed var(--border);
+        border-radius: 999px;
+        background: color-mix(in oklab, var(--card) 94%, transparent)
+    }
+
+    /* Sections */
+    section {
+        padding: 26px 0
+    }
+
+    section h2 {
+        font-size: 1.2rem;
+        letter-spacing: .2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px
+    }
+
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px;
+        box-shadow: var(--shadow)
+    }
+
+    .grid {
+        display: grid;
+        gap: 14px
+    }
+
+    .grid.cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    .grid.cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    @media (max-width:900px) {
+        .hero-card {
+            grid-template-columns: 1fr
+        }
+
+        .grid.cols-2,
+        .grid.cols-3 {
+            grid-template-columns: 1fr
+        }
+    }
+
+    /* Lists */
+    .item {
+        display: grid;
+        gap: 6px
+    }
+
+    .item .meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: .95rem
+    }
+
+    .item h3 {
+        margin: .2rem 0
+    }
+
+    .pill {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 4px 8px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-size: .86rem
+    }
+
+    /* Timeline style */
+    .timeline {
+        position: relative
+    }
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--border)
+    }
+
+    .tli {
+        position: relative;
+        padding-left: 34px;
+        margin: 14px 0
+    }
+
+    .tli::before {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent)
+    }
+
+    /* Projects */
+    .filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px
+    }
+
+    .filters button {
+        padding: 6px 10px
+    }
+
+    .project {
+        display: grid;
+        gap: 10px
+    }
+
+    .project .links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap
+    }
+
+    /* Footer */
+    footer {
+        padding: 30px 0 50px;
+        color: var(--muted)
+    }
+
+    /* Utilities */
+    .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap
+    }
+
+    .muted {
+        color: var(--muted)
+    }
+
+    .link {
+        color: var(--link);
+        text-decoration: none
+    }
+
+    .link:hover {
+        text-decoration: underline
+    }
+
+    .right {
+        margin-left: auto
+    }
+
+    .hide {
+        display: none
+    }
+
+    /* Print */
+    @media print {
+
+        header,
+        .filters,
+        .theme-toggle,
+        #toTop {
+            display: none !important
+        }
+
+        body {
+            background: white
+        }
+
+        .card {
+            box-shadow: none;
+            border-color: #ddd
+        }
+    }
