@@ -1,415 +1,1399 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Akshay Jamnis – Portfolio</title>
-    <meta name="description" content="Single‑file personal portfolio for resume, projects, experience, and writing." />
-    <link rel="icon"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23000000'/%3E%3Ctext x='50' y='62' font-size='54' text-anchor='middle' fill='white' font-family='Arial, Helvetica, sans-serif'%3EAJ%3C/text%3E%3C/svg%3E" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay Jamnis — AI/ML Engineer</title>
+  <meta name="description" content="Portfolio of Akshay Jamnis — AI/ML, Computer Vision, Full-Stack" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #18181f;
+      --border: #2a2a38;
+      --accent: #7c6dff;
+      --accent2: #00e5c0;
+      --accent3: #ff5f7e;
+      --text: #e8e8f0;
+      --muted: #8888a8;
+      --dim: #44445a;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
+    }
 
-    <!--
-    HOW TO USE
-    1) Replace placeholder content with your info.
-    2) Save this file as index.html.
-    3) (Optional) Put PDFs/images inside /assets and update links below.
-    4) Push to GitHub and enable Pages (Settings → Pages → Deploy from branch → main /root).
-  -->
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="stylesheet" href="port.css">
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.5;
+    }
+
+    /* ─── CURSOR GLOW ─── */
+    .cursor-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,109,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: left 0.4s ease, top 0.4s ease;
+      z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.7);
+      border-bottom: 1px solid rgba(42,42,56,0.5);
+      transition: all 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent2); }
+
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 18px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,109,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,109,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent2);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--accent2);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.35s;
+    }
+
+    h1 .name-accent { color: var(--accent); }
+    h1 .name-line2 { color: var(--muted); font-weight: 400; font-size: 0.65em; letter-spacing: -1px; display: block; margin-top: 4px; }
+
+    .hero-desc {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.5s;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+      letter-spacing: 0.05em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.7s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover {
+      background: #6b5cf0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,109,255,0.35);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* ─── ORBS ─── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: rgba(124,109,255,0.08);
+      right: -100px; top: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: rgba(0,229,192,0.05);
+      right: 200px; bottom: 0;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* ─── SECTION LAYOUT ─── */
+    section {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent2);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent2);
+      opacity: 0.4;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-bottom: 60px;
+      line-height: 1.1;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.3px;
+    }
+
+    /* ─── ABOUT / STATS ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .about-text strong { color: var(--text); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .stat-cell {
+      background: var(--surface);
+      padding: 28px;
+      transition: background 0.2s;
+    }
+    .stat-cell:hover { background: var(--surface2); }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-number span { color: var(--accent); }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--border);
+      padding-left: 36px;
+      margin-left: 12px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 56px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -42px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(124,109,255,0.2);
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .tl-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tl-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent2);
+      letter-spacing: 0.05em;
+    }
+
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+    .pill-accent {
+      border-color: rgba(124,109,255,0.3);
+      color: var(--accent);
+      background: rgba(124,109,255,0.07);
+    }
+
+    .tl-company {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .tl-points {
+      list-style: none;
+      margin-top: 12px;
+    }
+    .tl-points li {
+      color: var(--muted);
+      font-size: 14px;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+    .tl-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(124,109,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .skill-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .tag-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative;
+    }
+
+    .project-card:hover {
+      border-color: rgba(124,109,255,0.4);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+
+    .project-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .project-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 8px; }
+
+    /* Filter buttons */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(124,109,255,0.08);
+    }
+
+    .project-card.hidden { display: none; }
+
+    /* ─── EDUCATION ─── */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      transition: border-color 0.3s;
+    }
+    .edu-card:hover { border-color: rgba(124,109,255,0.3); }
+
+    .edu-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(124,109,255,0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .edu-degree {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent2);
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    .edu-courses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    /* ─── ACCOMPLISHMENTS ─── */
+    .accomplishments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .acc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      transition: all 0.3s;
+    }
+    .acc-card:hover {
+      border-color: rgba(0,229,192,0.25);
+      transform: translateY(-3px);
+    }
+
+    .acc-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .acc-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .acc-detail {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(124,109,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .contact-sub {
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .hero { padding: 90px 20px 50px; }
+      h1 { letter-spacing: -2px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .accomplishments-grid { grid-template-columns: 1fr; }
+      .contact-wrap { padding: 40px 24px; }
+      .edu-card { flex-direction: column; gap: 18px; }
+    }
+
+    /* ─── HORIZONTAL MARQUEE ─── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 16px 0;
+      margin: 0;
+      background: var(--surface);
+    }
+    .marquee-inner {
+      display: flex;
+      gap: 48px;
+      animation: scroll-left 20s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .marquee-item::before { content: '◆'; color: var(--accent); font-size: 8px; }
+
+    @keyframes scroll-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Resume download section */
+    .resume-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .resume-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .resume-card:hover {
+      border-color: rgba(124,109,255,0.3);
+      transform: translateY(-4px);
+    }
+    .resume-card-icon { font-size: 32px; margin-bottom: 12px; }
+    .resume-card-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .resume-card-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .resume-cards { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <div class="wrap nav">
-            <div class="brand">
-                <div class="logo">AJ</div> <span>Akshay Jamnis</span>
-            </div>
-            <nav class="spacer">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#experience">Work</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#subjects">Subjects & Languages</a></li>
-                    <li><a href="#por">Positions</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#accomplishments">Accomplishments</a></li>
-                    <li><a href="#volunteering">Volunteering</a></li>
-                    <li><a href="#activities">Extra Curricular</a></li>
-                    <li><a href="#writing">Docs & Write‑ups</a></li>
-                    <li><a href="#resume for Machine leaning(AIML)">Resume</a></li>
-                </ul>
-            </nav>
-            <button class="btn theme-toggle" id="themeBtn" title="Toggle theme">🌗</button>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="nav-logo">AJ<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="assets/testML6.pdf" target="_blank" class="nav-cta">Resume ↗</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Available for opportunities · Bangalore, India</div>
+    <h1>
+      Akshay<br>
+      <span class="name-accent">Jamnis</span>
+      <span class="name-line2">AI/ML Engineer & Developer</span>
+    </h1>
+    <p class="hero-desc">
+      Final-year B.Tech (CSE–AIML) student building at the intersection of computer vision, machine learning, and full-stack development. CGPA 8.71 · Passionate about turning data into intelligent systems.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">🎓 CMR University '26</span>
+      <span class="badge">🤖 Machine Learning</span>
+      <span class="badge">👁️ Computer Vision</span>
+      <span class="badge">🐍 Python</span>
+      <span class="badge">📊 Data Engineering</span>
+      <span class="badge">🌐 Full-Stack</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+      <a href="https://www.linkedin.com/in/akshayjamnis49" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-wrap">
+  <div class="marquee-inner" id="marquee">
+    <span class="marquee-item">Python</span>
+    <span class="marquee-item">Machine Learning</span>
+    <span class="marquee-item">Computer Vision</span>
+    <span class="marquee-item">OpenCV</span>
+    <span class="marquee-item">Scikit-learn</span>
+    <span class="marquee-item">React</span>
+    <span class="marquee-item">Django</span>
+    <span class="marquee-item">Neural Networks</span>
+    <span class="marquee-item">Data Pipelines</span>
+    <span class="marquee-item">Power BI</span>
+    <span class="marquee-item">Git & GitHub</span>
+    <span class="marquee-item">Pandas & NumPy</span>
+    <span class="marquee-item">Deep Learning</span>
+    <span class="marquee-item">REST APIs</span>
+    <span class="marquee-item">Automation</span>
+    <span class="marquee-item">Flutter</span>
+    <!-- duplicated for seamless scroll -->
+    <span class="marquee-item">Python</span>
+    <span class="marquee-item">Machine Learning</span>
+    <span class="marquee-item">Computer Vision</span>
+    <span class="marquee-item">OpenCV</span>
+    <span class="marquee-item">Scikit-learn</span>
+    <span class="marquee-item">React</span>
+    <span class="marquee-item">Django</span>
+    <span class="marquee-item">Neural Networks</span>
+    <span class="marquee-item">Data Pipelines</span>
+    <span class="marquee-item">Power BI</span>
+    <span class="marquee-item">Git & GitHub</span>
+    <span class="marquee-item">Pandas & NumPy</span>
+    <span class="marquee-item">Deep Learning</span>
+    <span class="marquee-item">REST APIs</span>
+    <span class="marquee-item">Automation</span>
+    <span class="marquee-item">Flutter</span>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" style="padding-top: 100px;">
+  <div class="reveal">
+    <div class="section-label">01 / About</div>
+    <h2>Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>final-year B.Tech (CSE–AIML)</strong> student at CMR University, Bangalore, with a CGPA of <strong>8.71/10</strong>. My work lives at the intersection of AI research and practical software engineering.</p>
+        <p>I've interned at <strong>Autoliv</strong> (automotive safety giant) building engineering data pipelines for ML readiness, and at <strong>Osmania University's Incubator</strong> implementing computer vision demos. I led the <strong>AI/ML Student Club</strong> and mentored juniors on Python and ML fundamentals.</p>
+        <p>Currently seeking opportunities in <strong>ML Engineering, Computer Vision, Data Engineering, MLOps</strong>, or <strong>Full-Stack</strong> roles where I can bring intelligent systems to life.</p>
+        <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+          <span class="pill pill-accent">Open to work</span>
+          <span class="pill">Bangalore · Remote</span>
+          <span class="pill">akshayjamnis29@gmail.com</span>
         </div>
-    </header>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-cell">
+          <div class="stat-number">8.82<span>/10</span></div>
+          <div class="stat-label">CGPA · CMR University</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">2<span>+</span></div>
+          <div class="stat-label">Internship Experiences</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">7<span>+</span></div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Languages Spoken</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <main class="wrap">
-        <!-- HERO / ABOUT -->
-        <section id="about" class="hero">
-            <div class="hero-card">
-                <div class="avatar" aria-hidden="true">AJ</div>
-                <div>
-                    <h1>Akshay Jamnis</h1>
-                    <p>Proactive and versatile technologist with a strong foundation in Artificial Intelligence, Machine
-                        Learning, and software development. Skilled in Python, C++, Java and JavaScript, with practical
-                        experience in computer vision, neural networks, and data analysis. Internship experiences in
-                        software development and AI-based applications have strengthened problem-solving, adaptability,
-                        and teamwork skills. Actively building applications using Flutter, React, and modern AI tools,
-                        with a focus on applying innovation to real-world challenges. </p>
-                    <p>Final‑year B.Tech (CSE – AIML) @ CMR University, Bangalore • Interested in Machine
-                        learning,Computer Vision, Data
-                        Engineering, MLops and Full‑Stack Web.</p>
-                    <div class="inline-tags">
-                        <span class="tag">Location: Bangalore</span>
-                        <span class="tag">Email: akshayjamnis29@gmail.com</span>
-                        <!-- <a class="tag link" href="https://github.com/yourusername" target="_blank"
-                            rel="noopener">GitHub</a> -->
-                        <a class="tag link" href="https://www.linkedin.com/in/akshayjamnis49" target="_blank"
-                            rel="noopener">LinkedIn</a>
-                        <a class="tag link" href="#resume">Resume ↓</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- ─── EDUCATION ─── -->
+<section id="education">
+  <div class="reveal">
+    <div class="section-label">02 / Education</div>
+    <h2>Academic Background</h2>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">B.Tech in CSE — Artificial Intelligence & Machine Learning</div>
+        <div class="edu-school">CMR UNIVERSITY · BANGALORE · 2022 – 2026</div>
+        <div style="color:var(--muted); font-size:14px;">CGPA: <strong style="color:var(--accent)">8.82 / 10.0</strong></div>
+        <div class="edu-courses">
+          <span class="tag">Data Structures & Algorithms</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Neural Networks</span>
+          <span class="tag">DBMS</span>
+          <span class="tag">Big Data</span>
+          <span class="tag">Operating Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- EDUCATION -->
-        <section id="education">
-            <h2>Education</h2>
-            <div class="card timeline">
-                <div class="tli item">
-                    <h3>B.Tech in CSE (AIML) – CMR University</h3>
-                    <div class="meta"><span>2022 – 2026</span><span class="pill">Bangalore</span><span
-                            class="pill">CGPA: 8.71/10</span></div>
-                    <div>Core courses: Data Structures, Algorithms, ML, DBMS, OS, Computer Vision, Big Data.</div>
-                </div>
-                <!-- <div class="tli item">
-                    <h3>Senior Secondary (XII)</h3>
-                    <div class="meta"><span>2019 – 2021</span><span class="pill">Science</span></div>
-                    <div>PCMB with Computer Science.</div>
-                </div> -->
-            </div>
-        </section>
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+  <div class="reveal">
+    <div class="section-label">03 / Experience</div>
+    <h2>Work & Internships</h2>
+    <div class="timeline">
 
-        <!-- EXPERIENCE -->
-        <section id="experience">
-            <h2>Internship & Work Experience</h2>
-            <div class="card timeline">
-                <div class="tli item">
-                    <h3>RDE Automation intern – Autoliv</h3>
-                    <div class="meta"><span>Aug - 2025 – Oct 2025</span><span class="pill">Bangalore
-                            (Onsite)</span><span class="pill">Python • Data Pipelines</span><span class="pill"><a
-                                class="btn" href="assets/experience letter autoliv .pdf" target="_blank"> Experience
-                                letter</a></span></div>
-                    <ul>
-                        <li>Engaged in a summer internship focusing on automotive safety technologies. </li>
-                        <li>Built scripts to extract and clean engineering data; standardized datasets for ML readiness.
-                        </li>
-                        <li>Designed a basic algorithmic pipeline and documentation for handover.</li>
-                        <li>Acquired practical experience with industry methodologies, emphasizing the application of
-                            AI/ML for the
-                            advancement of intelligent system development. </li>
-                    </ul>
-                </div>
-                <div class="tli item">
-                    <h3>Incubator – Osmania University</h3>
-                    <div class="meta"><span>Jan 2025 – Mar 2025</span><span class="pill">Remote</span><span
-                            class="pill">OpenCV • REST APIs</span></div>
-                    <ul>
-                        <li>Implemented simple object detection demo with pre‑trained models and reported results.</li>
-                        <li>Collaborated using Git and wrote clear READMEs.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+      <div class="timeline-item">
+        <div class="tl-meta">
+          <span class="tl-date">Aug 2025 – Oct 2025</span>
+          <span class="pill pill-accent">Onsite · Bangalore</span>
+          <span class="pill">Python</span>
+          <span class="pill">Data Pipelines</span>
+        </div>
+        <h3>RDE Automation Intern</h3>
+        <div class="tl-company">Autoliv — Global leader in automotive safety systems</div>
+        <ul class="tl-points">
+          <li>Built scripts to extract and clean engineering datasets; standardized them for ML pipeline readiness across multiple data sources.</li>
+          <li>Designed a basic algorithmic pipeline and authored handover documentation used by the team post-internship.</li>
+          <li>Gained hands-on industry exposure to AI/ML applied to safety-critical automotive systems.</li>
+          <li>Collaborated in an agile environment, applying best practices for data reproducibility and pipeline transparency.</li>
+        </ul>
+      </div>
 
-        <!-- SKILLS -->
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="card grid cols-3">
-                <div class="item">
-                    <h3>Programming</h3>
-                    <div class="row">
-                        <span class="pill">Python</span>
-                        <span class="pill">C++</span>
-                        <span class="pill">JavaScript</span>
-                        <span class="pill">HTML/CSS</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <h3>Data & AI</h3>
-                    <div class="row">
-                        <span class="pill">Pandas</span>
-                        <span class="pill">NumPy</span>
-                        <span class="pill">OpenCV</span>
-                        <span class="pill">Scikit‑learn</span>
-                        <span class="pill">BeautifulSoup</span>
-                        <span class="pill">Python Docx</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <h3>Tools</h3>
-                    <div class="row">
-                        <span class="pill">Git & GitHub</span>
-                        <span class="pill">Jupyter</span>
-                        <span class="pill">Power BI</span>
-                        <span class="pill">SharePoint</span>
-                        <span class="pill">React</span>
-                        <span class="pill">Django</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <div class="timeline-item">
+        <div class="tl-meta">
+          <span class="tl-date">Jan 2025 – Mar 2025</span>
+          <span class="pill">Remote</span>
+          <span class="pill">OpenCV</span>
+          <span class="pill">REST APIs</span>
+        </div>
+        <h3>AI/CV Research Intern</h3>
+        <div class="tl-company">Osmania University Incubator</div>
+        <ul class="tl-points">
+          <li>Implemented an object detection demo using pre-trained models; reported findings on anchor behavior and precision metrics.</li>
+          <li>Collaborated via Git with clear commit hygiene and wrote detailed READMEs to document the project lifecycle.</li>
+        </ul>
+      </div>
 
-        <!-- SUBJECTS & LANGUAGES -->
-        <section id="subjects">
-            <h2>Subjects & Languages</h2>
-            <div class="card grid cols-2">
-                <div class="item">
-                    <h3>Subjects</h3>
-                    <div class="row">
-                        <span class="pill">DSA</span>
-                        <span class="pill">Deep learning</span>
-                        <span class="pill">Computer Vision</span>
-                        <span class="pill">Neural Networks</span>
-                        <span class="pill">DBMS</span>
-                        <span class="pill">Operating Systems</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <h3>Languages</h3>
-                    <div class="row">
-                        <span class="pill">English</span>
-                        <span class="pill">Kannada</span>
-                        <span class="pill">Marathi</span>
-                        <span class="pill">Hindi</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    </div>
+  </div>
+</section>
 
-        <!-- POSITIONS OF RESPONSIBILITY -->
-        <section id="por">
-            <h2>Positions of Responsibility</h2>
-            <div class="card grid">
-                <div class="item">
-                    <h3>Event Volunteer – WordCamp Bangalore</h3>
-                    <div class="meta"><span>2024</span><span class="pill">Operations</span></div>
-                    <div>Supported on‑ground coordination and attendee assistance.</div>
-                </div>
-                <div class="item">
-                    <h3>Club Lead – AI/ML Student Club</h3>
-                    <div class="meta"><span>2023 – 2024</span><span class="pill">Student Leadership</span></div>
-                    <div>Organized workshops on Python and ML basics; mentored juniors.</div>
-                </div>
-            </div>
-        </section>
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">04 / Skills</div>
+    <h2>Technical Toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-title">Programming Languages</div>
+        <div class="tag-cluster">
+          <span class="tag">Python</span>
+          <span class="tag">C++</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">Java</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-title">AI / ML / Data</div>
+        <div class="tag-cluster">
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">BeautifulSoup</span>
+          <span class="tag">Python Docx</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-title">Tools & Frameworks</div>
+        <div class="tag-cluster">
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">React</span>
+          <span class="tag">Django</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Jupyter</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">SharePoint</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📚</div>
+        <div class="skill-title">Core CS Subjects</div>
+        <div class="tag-cluster">
+          <span class="tag">DSA</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Neural Networks</span>
+          <span class="tag">DBMS</span>
+          <span class="tag">Operating Systems</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-title">Languages Spoken</div>
+        <div class="tag-cluster">
+          <span class="tag">English</span>
+          <span class="tag">Kannada</span>
+          <span class="tag">Marathi</span>
+          <span class="tag">Hindi</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-title">Currently Learning</div>
+        <div class="tag-cluster">
+          <span class="tag">MLOps</span>
+          <span class="tag">Docker</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">LLM Fine-tuning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- PROJECTS -->
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="filters">
-                <button class="btn" data-filter="all">All</button>
-                <button class="btn" data-filter="ml">ML / CV</button>
-                <button class="btn" data-filter="web">Web</button>
-                <button class="btn" data-filter="scripts">Scripts</button>
-            </div>
-            <div class="grid cols-2" id="projectGrid">
-                <!-- <article class="card project" data-tags="All">
-                    <h3>Projects_section_Sample</h3>
-                    <div class="meta"><span class="pill">Python</span><span class="pill">NumPy</span><span
-                            class="pill">Sigmoid → ReLU</span></div>
-                    <p>write something here</p>
-                    <div class="links">
-                        <a class="link" href="#" target="_blank">GitHub</a>
-                        <a class="link" href="#" target="_blank">Demo</a>
-                    </div>
-                </article> -->
-                <article class="card project" data-tags="ml cv">
-                    <h3>Iris datasets</h3>
-                    <div class="meta"><span class="pill">Python</span><span class="pill">NumPy</span><span class="pill">Sigmoid → ReLU</span><span class = "pill">Pandas</span></div>
-                    <p>Extraction of head and the data visualisation.</p>
-                    <div class="links">
-                        <a class="link" href="https://github.com/akshayjamnis/iris.git" target="_blank">GitHub</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="ml cv">
-                    <h3>Handwritten Digit Recognizer (MNIST)</h3>
-                    <div class="meta"><span class="pill">Python</span><span class="pill">NumPy</span><span
-                            class="pill">Sigmoid → ReLU</span></div>
-                    <p>From‑scratch neural network for 0‑9 digit classification; experimented with activation functions
-                        and accuracy tracking.</p>
-                    <div class="links">
-                        <a class="link" href="#" target="_blank">GitHub</a>
-                        <a class="link" href="#" target="_blank">Demo</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="web">
-                    <h3>Spotify Clone (Frontend)</h3>
-                    <div class="meta"><span class="pill">HTML/CSS/JS</span><span class="pill">Responsive</span></div>
-                    <p>UI clone with playlists, player controls, and responsive layout.</p>
-                    <div class="links">
-                        <a class="link" href="https://github.com/akshayjamnis/spotify_frontend.git" target="_blank">GitHub</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="web scripts">
-                    <h3>PDF → DOCX Utilities</h3>
-                    <div class="meta"><span class="pill">Python</span><span class="pill">Automation</span></div>
-                    <p>Handy scripts to convert and clean documents; includes troubleshooting notes for Word COM
-                        automation.</p>
-                    <div class="links">
-                        <a class="link" href="#" target="_blank">GitHub</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="ml cv">
-                    <h3>RetinaNet on Pascal VOC (Notebook)</h3>
-                    <div class="meta"><span class="pill">Object Detection</span><span class="pill">Transfer
-                            Learning</span></div>
-                    <p>Small object‑detection experiment using an existing model to understand anchors, FPN, and
-                        evaluation.</p>
-                    <div class="links">
-                        <a class="link" href="#" target="_blank">Notebook</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="All">
-                    <h3>Simulation 1</h3>
-                    <div class="meta"><span class="pill">Object Detection</span><span class="pill">Transfer
-                            Learning</span></div>
-                    <p>Small object‑detection experiment using an existing model to understand anchors, FPN, and
-                        evaluation.</p>
-                    <div class="links">
-                        <a class="link" href="https://github.com/akshayjamnis/forage-jpmc-swe-task-1.git" target="_blank">github</a>
-                    </div>
-                </article>
-                <article class="card project" data-tags="ml cv">
-                    <h3>Simulation 2</h3>
-                    <div class="meta"><span class="pill">Object Detection</span><span class="pill">Transfer
-                            Learning</span></div>
-                    <p>Small object‑detection experiment using an existing model to understand anchors, FPN, and
-                        evaluation.</p>
-                    <div class="links">
-                        <a class="link" href="https://github.com/akshayjamnis/forage-jpmc-swe-task-2.git" target="_blank">github</a>
-                    </div>
-                </article>
-            </div>
-        </section>
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">05 / Projects</div>
+    <h2>What I've Built</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ml">ML / CV</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="scripts">Scripts</button>
+    </div>
+    <div class="projects-grid" id="projectGrid">
 
-        <!-- ACCOMPLISHMENTS -->
-        <section id="accomplishments">
-            <h2>Accomplishments</h2>
-            <div class="card grid">
-                <div class="item">
-                    <h3>Top 10% – Coding Challenge</h3>
-                    <div class="meta"><span>2024</span><span class="pill">DSA</span></div>
-                </div>
-                <div class="item">
-                    <h3>Campus Hackathon Winner</h3>
-                    <div class="meta"><span>2023</span><span class="pill">Computer Vision</span></div>
-                </div>
-            </div>
-        </section>
+      <div class="project-card" data-tags="ml">
+        <div class="project-number">Project 01 · ML</div>
+        <div class="project-title">Handwritten Digit Recognizer (MNIST)</div>
+        <div class="project-desc">Built a neural network from scratch in NumPy for 0–9 digit classification. Experimented with Sigmoid vs ReLU activations, learning rate scheduling, and tracked accuracy across epochs.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">Neural Net</span>
+          </div>
+          <a href="#" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
 
-        <!-- VOLUNTEERING -->
-        <section id="volunteering">
-            <h2>Volunteering</h2>
-            <div class="card grid">
-                <div class="item">
-                    <h3>NGO Tech Support</h3>
-                    <div class="meta"><span>2022 – Present</span><span class="pill">Part‑time</span></div>
-                    <div>Helped with website updates and basic data cleanup for reports.</div>
-                </div>
-            </div>
-        </section>
+      <div class="project-card" data-tags="ml">
+        <div class="project-number">Project 02 · CV</div>
+        <div class="project-title">RetinaNet on Pascal VOC</div>
+        <div class="project-desc">Explored object detection using a RetinaNet model on Pascal VOC. Dug into anchor generation, Feature Pyramid Networks, and mAP evaluation. Great hands-on study of modern detection architectures.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Object Detection</span>
+            <span class="tag">FPN</span>
+            <span class="tag">Transfer Learning</span>
+          </div>
+          <a href="#" target="_blank" class="project-link">Notebook →</a>
+        </div>
+      </div>
 
-        <!-- EXTRA CURRICULAR -->
-        <section id="activities">
-            <h2>Extra Curricular Activities</h2>
-            <div class="card grid">
-                <div class="item">
-                    <h3>Classical Music Enthusiast</h3>
-                    <div class="meta"><span>Hobby</span></div>
-                    <div>Practice sessions and concerts; learning rhythm and breath for better speaking clarity.</div>
-                </div>
-                <div class="item">
-                    <h3>Chess & Sports</h3>
-                    <div class="meta"><span>Recreation</span></div>
-                    <div>Regular play; built a simple Chess app as a side project.</div>
-                </div>
-            </div>
-        </section>
+      <div class="project-card" data-tags="ml">
+        <div class="project-number">Project 03 · Data</div>
+        <div class="project-title">Iris Dataset Analysis</div>
+        <div class="project-desc">End-to-end EDA on the classic Iris dataset. Data extraction, cleaning, statistical summaries, and rich visualizations (scatter plots, heatmaps, distribution charts) using Pandas and Matplotlib.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Visualization</span>
+          </div>
+          <a href="https://github.com/akshayjamnis/iris.git" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
 
-        <!-- WRITING / DOCS -->
-        <!-- <section id="writing">
-            <h2>Docs & Write‑ups</h2>
-            <div class="card grid">
-                <div class="item">
-                    <h3>Internship Report</h3>
-                    <div class="meta"><span class="pill">PDF</span></div>
-                    <a class="link" href="assets/internship_report.pdf" target="_blank">Open document</a>
-                </div>
-                <div class="item">
-                    <h3>Technical Blog: Prompt Engineering Basics</h3>
-                    <div class="meta"><span class="pill">Article</span></div>
-                    <a class="link" href="#" target="_blank">Read online</a>
-                </div>
-            </div>
-        </section> -->
+      <div class="project-card" data-tags="web">
+        <div class="project-number">Project 04 · Web</div>
+        <div class="project-title">Spotify Clone (Frontend)</div>
+        <div class="project-desc">Pixel-perfect Spotify UI clone featuring playlist navigation, player controls, responsive layout for mobile and desktop, and smooth CSS transitions. A deep-dive into advanced CSS and UI engineering.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">HTML/CSS/JS</span>
+            <span class="tag">Responsive</span>
+          </div>
+          <a href="https://github.com/akshayjamnis/spotify_frontend.git" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
 
-        <!-- RESUME -->
-        <section id="resume for Machine leaning(AIML)">
-            <h2>Resume</h2>
-            <div class="card row">
-                <a class="btn" href="assets/testML6.pdf" download>⬇️ Download PDF</a>
-                <a class="btn" href="assets/testML6.pdf" target="_blank">🔎 View in browser</a>
-                <span class="muted">Machine Learning(AIML) </span>
-            </div>
-        </section>
+      <div class="project-card" data-tags="scripts">
+        <div class="project-number">Project 05 · Automation</div>
+        <div class="project-title">PDF → DOCX Utilities</div>
+        <div class="project-desc">Python automation scripts for document conversion and cleanup. Handles edge cases in Word COM automation, includes formatting normalization and troubleshooting guides for production use.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Automation</span>
+            <span class="tag">python-docx</span>
+          </div>
+          <a href="#" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
 
-        <section id="resume for Business Analyst">
-            <h2>Resume</h2>
-            <div class="card row">
-                <a class="btn" href="assets/testBA4.pdf" download>⬇️ Download PDF</a>
-                <a class="btn" href="assets/testBA4.pdf" target="_blank">🔎 View in browser</a>
-                <span class="muted">Business Analyst</span>
-            </div>
-        </section>
+      <div class="project-card" data-tags="web scripts">
+        <div class="project-number">Project 06 · Simulation</div>
+        <div class="project-title">JP Morgan SWE Simulations</div>
+        <div class="project-desc">Completed JP Morgan's Software Engineering virtual experience — fixing broken repository data feeds, displaying live stock data using Perspective, and building financial data visualizations.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">React</span>
+            <span class="tag">Finance</span>
+          </div>
+          <a href="https://github.com/akshayjamnis/forage-jpmc-swe-task-1.git" target="_blank" class="project-link">GitHub →</a>
+        </div>
+      </div>
 
-        <section id="resume for Business Analyst">
-            <h2>Resume</h2>
-            <div class="card row">
-                <a class="btn" href="assets/AkshayJamnisAON.pdf" download>⬇️ Download PDF</a>
-                <a class="btn" href="assets/AkshayJamnisAON.pdf" target="_blank">🔎 View in browser</a>
-                <span class="muted">Full Stack and DevOps</span>
-            </div>
-        </section>
+    </div>
+  </div>
+</section>
 
-        <!-- CONTACT (Optional quick links) -->
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="card">
-                <div class="row">
-                    <a class="btn" href="mailto:akshayjamnis29@gmail.com">Email me</a>
-                    <!-- <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> -->
-                    <a class="btn" href="https://www.linkedin.com/in/akshayjamnis49" target="_blank"
-                        rel="noopener">LinkedIn</a>
-                </div>
-            </div>
-        </section>
+<!-- ─── ACCOMPLISHMENTS ─── -->
+<section id="accomplishments">
+  <div class="reveal">
+    <div class="section-label">06 / Recognition</div>
+    <h2>Accomplishments</h2>
+    <div class="accomplishments-grid">
+      <div class="acc-card">
+        <div class="acc-icon">🏆</div>
+        <div>
+          <div class="acc-title">Campus Hackathon Winner</div>
+          <div class="acc-detail">2023 · Computer Vision Track — built a real-time detection solution in under 24 hours</div>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="acc-icon">💻</div>
+        <div>
+          <div class="acc-title">Top 10% — Coding Challenge</div>
+          <div class="acc-detail">2024 · DSA competition — ranked in top 10% among 500+ participants</div>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="acc-icon">🎙️</div>
+        <div>
+          <div class="acc-title">Club Lead — AI/ML Student Club</div>
+          <div class="acc-detail">2023–2024 · Organized Python & ML workshops; mentored 20+ juniors</div>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="acc-icon">🤝</div>
+        <div>
+          <div class="acc-title">Event Volunteer — WordCamp Bangalore</div>
+          <div class="acc-detail">2024 · On-ground coordination and attendee support for 500+ attendee event</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <footer class="wrap">
-            <div class="row">
-                <span>© <span id="year"></span> Akshay Jamnis</span>
-                <a class="right link" href="#about">Back to top ↑</a>
-            </div>
-        </footer>
-    </main>
+<!-- ─── RESUME ─── -->
+<section id="resume">
+  <div class="reveal">
+    <div class="section-label">07 / Resume</div>
+    <h2>Download Resume</h2>
+    <div class="resume-cards">
+      <div class="resume-card">
+        <div class="resume-card-icon">🤖</div>
+        <div class="resume-card-title">AI / ML Engineer</div>
+        <div class="resume-card-sub">Focus: Machine Learning, Computer Vision, MLOps</div>
+        <a href="assets/testML6.pdf" target="_blank" class="btn-primary" style="width:100%; justify-content:center;">View PDF ↗</a>
+      </div>
+      <div class="resume-card">
+        <div class="resume-card-icon">📊</div>
+        <div class="resume-card-title">Business Analyst</div>
+        <div class="resume-card-sub">Focus: Data analysis, reporting, insights</div>
+        <a href="assets/testBA4.pdf" target="_blank" class="btn-primary" style="width:100%; justify-content:center;">View PDF ↗</a>
+      </div>
+      <div class="resume-card">
+        <div class="resume-card-icon">🌐</div>
+        <div class="resume-card-title">Full Stack & DevOps</div>
+        <div class="resume-card-sub">Focus: React, Django, cloud deployment</div>
+        <a href="assets/Akshay Jamnis.pdf" target="_blank" class="btn-primary" style="width:100%; justify-content:center;">View PDF ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <button id="toTop" class="btn" style="position:fixed; right:16px; bottom:16px; display:none"
-        aria-label="Scroll to top">↑</button>
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">08 / Contact</div>
+    <div class="contact-wrap">
+      <div class="contact-title">Let's build something together</div>
+      <p class="contact-sub">I'm actively looking for internship and full-time opportunities. If you have a role in ML, CV, data engineering, or full-stack — I'd love to chat.</p>
+      <div class="contact-links">
+        <a href="mailto:akshayjamnis29@gmail.com" class="btn-primary">Send me an email →</a>
+        <a href="https://www.linkedin.com/in/akshayjamnis49" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+        <a href="assets/testML6.pdf" target="_blank" class="btn-outline">Resume ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="port.js"></script>
+<footer>
+  <span>© <span id="year"></span> Akshay Jamnis · Built with care · Bangalore, India</span>
+</footer>
+
+<script>
+  // ── Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Cursor glow
+  const glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Project filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('#projectGrid .project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        if (filter === 'all' || tags.includes(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // ── Nav active highlighting
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.getAttribute('id');
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + id ? 'var(--accent2)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => navObserver.observe(s));
+</script>
 </body>
-
 </html>
